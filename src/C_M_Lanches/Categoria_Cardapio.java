@@ -5,44 +5,54 @@ import java.util.List;
 
 
 public class Categoria_Cardapio implements ItemCardapio {
+
+
     private List<ItemCardapio> itens = new ArrayList<>();
+
+    // 2. O NOME DA CATEGORIA
     private String nomeCategoria;
-    String descricao = "Categorias";
 
+    // (Opcional, mas bom para completar a interface)
+    String descricao = "Categoria de Itens";
 
-    //OBRIGATORIO O GET E O COST
-    @Override
-    public String getDescricao() {
-        return descricao;
-    }
-    public double cost(){
-        return 0.0;
-    }
-
+    // 3. O CONSTRUTOR (ESSENCIAL)
+    //    É chamado no Main com: new Categoria_Cardapio("PASTÉIS")
     public Categoria_Cardapio(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
 
+    // 4. O MÉTODO PARA ADICIONAR "FILHOS" (ESSENCIAL)
+    //    É chamado no Main com: categoriaPasteis.adicionarItem(new Pastel_Carne())
     public void adicionarItem(ItemCardapio item) {
         itens.add(item);
     }
 
-    public void removerItem(ItemCardapio item) {
-        itens.remove(item);
+    // ----- MÉTODOS DA INTERFACE ItemCardapio -----
+
+    // Você adicionou este, o que é ótimo para cumprir o contrato da interface
+    @Override
+    public String getDescricao() {
+        return this.descricao;
     }
 
-    // 2. O método do Composite!
+    // Você adicionou este. O custo de uma "categoria" em si é 0.
+    @Override
+    public double cost(){
+        return 0.0;
+    }
+
+    // O MÉTODO PRINCIPAL DO COMPOSITE (que analisamos)
     @Override
     public String getDescricaoFormatada() {
-        // Cria a formatação da categoria
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n---- " + this.nomeCategoria + " ----");
+        // Começa com o título da própria categoria
+        String textoFormatado = "\n---- " + this.nomeCategoria + " ----";
 
-        // Chama o mesmo método em todos os filhos
+        // Delega para todos os "filhos"
         for (ItemCardapio item : itens) {
-            builder.append("\n  - " + item.getDescricaoFormatada());
+            // Chama o MESMO método no filho (seja ele um Pastel ou outra Categoria)
+            textoFormatado = textoFormatado + "\n  - " + item.getDescricaoFormatada();
         }
 
-        return builder.toString();
+        return textoFormatado;
     }
 }
