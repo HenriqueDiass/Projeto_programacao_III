@@ -1,10 +1,9 @@
-package C_M_Lanches.Bebidas;
+package C_M_Lanches.lanches;
 
+import C_M_Lanches.ItemCardapio_Interface;
 
-import C_M_Lanches.ItemCardapio;
-
-public abstract class Suco implements ItemCardapio {
-    String descricao = "Tipo de suco";
+public abstract class Pastel_Abstrato implements ItemCardapio_Interface {
+    String descricao = "Tipo de pastel";
 
     public String getDescricao() {
         return descricao;
@@ -16,3 +15,5 @@ public abstract class Suco implements ItemCardapio {
         return this.getDescricao() + " - R$" + String.format("%.2f", this.cost());
     }
 }
+
+
