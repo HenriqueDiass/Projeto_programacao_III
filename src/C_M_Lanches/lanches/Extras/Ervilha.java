@@ -1,12 +1,12 @@
 package C_M_Lanches.lanches.Extras;
 
-import C_M_Lanches.lanches.Pastel_Abstrato;
+import C_M_Lanches.lanches.PastelAbstrato;
 
-public class Ervilha extends Extras_Abstrato {
+public class Ervilha extends ExtrasAbstrato {
 
-    Pastel_Abstrato pastel;
+    PastelAbstrato pastel;
 
-    public Ervilha(Pastel_Abstrato pastel){
+    public Ervilha(PastelAbstrato pastel){
         this.pastel = pastel;
     }
 

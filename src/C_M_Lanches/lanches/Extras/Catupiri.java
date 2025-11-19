@@ -1,12 +1,12 @@
 package C_M_Lanches.lanches.Extras;
 
-import C_M_Lanches.lanches.Pastel_Abstrato;
+import C_M_Lanches.lanches.PastelAbstrato;
 
 
-public class Catupiri extends Extras_Abstrato {
-    Pastel_Abstrato pastel;
+public class Catupiri extends ExtrasAbstrato {
+    PastelAbstrato pastel;
 
-    public Catupiri(Pastel_Abstrato pastel){
+    public Catupiri(PastelAbstrato pastel){
         this.pastel = pastel;
     }
 

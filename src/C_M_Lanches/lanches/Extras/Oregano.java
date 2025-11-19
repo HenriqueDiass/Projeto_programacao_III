@@ -1,11 +1,11 @@
 package C_M_Lanches.lanches.Extras;
 
-import C_M_Lanches.lanches.Pastel_Abstrato;
+import C_M_Lanches.lanches.PastelAbstrato;
 
-public class Oregano extends Extras_Abstrato {
-    Pastel_Abstrato pastel;
+public class Oregano extends ExtrasAbstrato {
+    PastelAbstrato pastel;
 
-    public Oregano(Pastel_Abstrato pastel){
+    public Oregano(PastelAbstrato pastel){
         this.pastel = pastel;
     }
 

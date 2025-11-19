@@ -1,8 +1,8 @@
 package C_M_Lanches.Bebidas;
 
 
-public class Suco_Limao extends Suco_Abstrato {
-    public Suco_Limao() {
+public class SucoLimao extends SucoAbstrato {
+    public SucoLimao() {
         descricao = "Suco de limao";
     }
 

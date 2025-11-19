@@ -1,16 +1,16 @@
 package C_M_Lanches;
 
-public class Debug_Singleton {
+public class DebugSingleton {
 
-    private static Debug_Singleton instance;
+    private static DebugSingleton instance;
 
-    private Debug_Singleton() {
+    private DebugSingleton() {
 
     }
 
-    public static Debug_Singleton getInstance() {
+    public static DebugSingleton getInstance() {
         if (instance == null) {
-            instance = new Debug_Singleton();
+            instance = new DebugSingleton();
             System.out.println("--- MÓDULO DEBUG ATIVO ---");
         }
         return instance;

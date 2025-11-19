@@ -1,7 +1,7 @@
 package C_M_Lanches.lanches;
 
-public class Pastel_Calabresa extends Pastel_Abstrato {
-    public Pastel_Calabresa() {
+public class PastelCalabresa extends PastelAbstrato {
+    public PastelCalabresa() {
         descricao = "Pastel de Calabressa";
     }
 

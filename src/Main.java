@@ -2,18 +2,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import C_M_Lanches.Categoria_Cardapio_Composite;
-import C_M_Lanches.ItemCardapio_Interface;
-import C_M_Lanches.Gerenciador_Vendas_Singleton;
+import C_M_Lanches.CategoriaCardapioComposite;
+import C_M_Lanches.ItemCardapioInterface;
+import C_M_Lanches.GerenciadorVendasSingleton;
 import C_M_Lanches.Bebidas.*;
 import C_M_Lanches.lanches.*;
 import C_M_Lanches.lanches.Extras.*;
-import C_M_Lanches.Debug_Singleton;
+import C_M_Lanches.DebugSingleton;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static List<ItemCardapio_Interface> pedido = new ArrayList<>();
-    private static ItemCardapio_Interface cardapioCompleto;
+    private static List<ItemCardapioInterface> pedido = new ArrayList<>();
+    private static ItemCardapioInterface cardapioCompleto;
 
     public static void main(String[] args) {
 
@@ -24,7 +24,7 @@ public class Main {
             mostrarMenuPrincipal();
             int escolha = lerOpcao();
 
-            Debug_Singleton.getInstance().log("Main::main", "Opção de menu principal escolhida", escolha);
+            DebugSingleton.getInstance().log("Main::main", "Opção de menu principal escolhida", escolha);
 
             switch (escolha) {
                 case 1:
@@ -40,10 +40,10 @@ public class Main {
                     fecharContaCliente();
                     break;
                 case 5:
-                    Gerenciador_Vendas_Singleton.getInstance().imprimirRelatorioGeral();
+                    GerenciadorVendasSingleton.getInstance().imprimirRelatorioGeral();
                     break;
                 case 0:
-                    Debug_Singleton.getInstance().log("Main::main", "Encerrando o programa", null);
+                    DebugSingleton.getInstance().log("Main::main", "Encerrando o programa", null);
                     System.out.println("\nEncerrando sistema... Até logo!");
                     scanner.close();
                     return;
@@ -65,28 +65,28 @@ public class Main {
     }
 
     private static void montarCardapioParaExibicao() {
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Iniciando montagem do Cardápio Composite", null);
+        DebugSingleton.getInstance().log("Main::montarCardapioParaExibicao", "Iniciando montagem do Cardápio Composite", null);
 
-        Categoria_Cardapio_Composite categoriaPasteis = new Categoria_Cardapio_Composite("PASTÉIS");
-        Categoria_Cardapio_Composite categoriaBebidas = new Categoria_Cardapio_Composite("BEBIDAS");
+        CategoriaCardapioComposite categoriaPasteis = new CategoriaCardapioComposite("PASTÉIS");
+        CategoriaCardapioComposite categoriaBebidas = new CategoriaCardapioComposite("BEBIDAS");
 
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Pastris base adicionados às categorias", null);
-        categoriaPasteis.adicionarItem(new Pastel_Carne());
-        categoriaPasteis.adicionarItem(new Pastel_Frango());
-        categoriaPasteis.adicionarItem(new Pastel_Queijo());
-        categoriaPasteis.adicionarItem(new Pastel_Calabresa());
+        DebugSingleton.getInstance().log("Main::montarCardapioParaExibicao", "Pastris base adicionados às categorias", null);
+        categoriaPasteis.adicionarItem(new PastelCarne());
+        categoriaPasteis.adicionarItem(new PastelFrango());
+        categoriaPasteis.adicionarItem(new PastelQueijo());
+        categoriaPasteis.adicionarItem(new PastelCalabresa());
 
 
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Sucos base adicionados às categorias", null);
-        categoriaBebidas.adicionarItem(new Suco_Laranja());
-        categoriaBebidas.adicionarItem(new Suco_Uva());
-        categoriaBebidas.adicionarItem(new Suco_Limao());
-        categoriaBebidas.adicionarItem(new Suco_Maracuja());
+        DebugSingleton.getInstance().log("Main::montarCardapioParaExibicao", "Sucos base adicionados às categorias", null);
+        categoriaBebidas.adicionarItem(new SucoLaranja());
+        categoriaBebidas.adicionarItem(new SucoUva());
+        categoriaBebidas.adicionarItem(new SucoLimao());
+        categoriaBebidas.adicionarItem(new SucoMaracuja());
 
-        cardapioCompleto = new Categoria_Cardapio_Composite("CARDÁPIO DA LANCHONETE");
-        ((Categoria_Cardapio_Composite) cardapioCompleto).adicionarItem(categoriaPasteis);
-        ((Categoria_Cardapio_Composite) cardapioCompleto).adicionarItem(categoriaBebidas);
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Montagem do Cardápio Completo finalizada", null);
+        cardapioCompleto = new CategoriaCardapioComposite("CARDÁPIO DA LANCHONETE");
+        ((CategoriaCardapioComposite) cardapioCompleto).adicionarItem(categoriaPasteis);
+        ((CategoriaCardapioComposite) cardapioCompleto).adicionarItem(categoriaBebidas);
+        DebugSingleton.getInstance().log("Main::montarCardapioParaExibicao", "Montagem do Cardápio Completo finalizada", null);
     }
 
     private static void mostrarCardapioCompleto() {
@@ -105,22 +105,22 @@ public class Main {
 
     private static void fecharContaCliente() {
         if (pedido.isEmpty()) {
-            Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Tentativa de fechar conta, mas pedido está vazio", null);
+            DebugSingleton.getInstance().log("Main::fecharContaCliente", "Tentativa de fechar conta, mas pedido está vazio", null);
             System.out.println("\nA mesa está vazia. Adicione itens antes de fechar a conta.");
             return;
         }
 
-        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Iniciando fechamento da conta", "Itens no pedido: " + pedido.size());
+        DebugSingleton.getInstance().log("Main::fecharContaCliente", "Iniciando fechamento da conta", "Itens no pedido: " + pedido.size());
 
         StringBuilder recibo = new StringBuilder();
         double total = 0.0;
 
         recibo.append("\n========= CUPOM FISCAL ==========\n");
-        for (ItemCardapio_Interface item : pedido) {
+        for (ItemCardapioInterface item : pedido) {
             recibo.append(item.getDescricaoFormatada()).append("\n");
             total += item.cost();
         }
-        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Total calculado", total);
+        DebugSingleton.getInstance().log("Main::fecharContaCliente", "Total calculado", total);
         recibo.append("----------------------------------\n");
         recibo.append(String.format("TOTAL A PAGAR: R$%.2f\n", total));
         recibo.append("==================================\n");
@@ -129,11 +129,11 @@ public class Main {
         System.out.println(textoFinal);
 
 
-        Gerenciador_Vendas_Singleton.getInstance().salvarPedido(textoFinal);
-        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Chamando Gerenciador_Vendas para salvar o pedido", null);
+        GerenciadorVendasSingleton.getInstance().salvarPedido(textoFinal);
+        DebugSingleton.getInstance().log("Main::fecharContaCliente", "Chamando Gerenciador_Vendas para salvar o pedido", null);
         System.out.println(">> Venda registrada no sistema com sucesso! <<");
         pedido.clear();
-        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Lista de pedidos limpa", null);
+        DebugSingleton.getInstance().log("Main::fecharContaCliente", "Lista de pedidos limpa", null);
         System.out.println("\nPronto para o próximo atendimento...");
     }
 
@@ -146,10 +146,10 @@ public class Main {
         System.out.print("Escolha o sabor: ");
         int escolhaPastel = lerOpcao();
 
-        Debug_Singleton.getInstance().log("Main::montarPastel", "Opção de sabor de pastel lida", escolhaPastel);
+        DebugSingleton.getInstance().log("Main::montarPastel", "Opção de sabor de pastel lida", escolhaPastel);
 
 
-        Pastel_Abstrato pastelBase = Pastel_Factory.criarPastel(escolhaPastel);
+        PastelAbstrato pastelBase = PastelFactory.criarPastel(escolhaPastel);
 
         if (pastelBase == null) {
             System.out.println("Sabor de pastel inválido.");
@@ -167,14 +167,14 @@ public class Main {
 
             int escolhaExtra = lerOpcao();
 
-            Debug_Singleton.getInstance().log("Main::montarPastel", "Opção de extra lida", escolhaExtra);
+            DebugSingleton.getInstance().log("Main::montarPastel", "Opção de extra lida", escolhaExtra);
 
             if (escolhaExtra == 0) {
-                Debug_Singleton.getInstance().log("Main::montarPastel", "Usuário finalizou o pastel sem mais extras", null);
+                DebugSingleton.getInstance().log("Main::montarPastel", "Usuário finalizou o pastel sem mais extras", null);
                 break;
             }
 
-            Pastel_Abstrato pastelComExtra = Extra_Factory.adicionarExtra(escolhaExtra, pastelBase);
+            PastelAbstrato pastelComExtra = ExtraFactory.adicionarExtra(escolhaExtra, pastelBase);
 
             if (pastelComExtra != null) {
                 pastelBase = pastelComExtra;
@@ -184,7 +184,7 @@ public class Main {
             }
         }
         pedido.add(pastelBase);
-        Debug_Singleton.getInstance().log("Main::montarPastel", "Pastel finalizado e adicionado à lista de pedido", pastelBase.getDescricao());
+        DebugSingleton.getInstance().log("Main::montarPastel", "Pastel finalizado e adicionado à lista de pedido", pastelBase.getDescricao());
         System.out.println(">>> Pastel (" + pastelBase.getDescricao() + ") adicionado ao pedido! <<<");
     }
 
@@ -197,9 +197,9 @@ public class Main {
         System.out.print("Escolha a bebida: ");
 
         int escolhaBebida = lerOpcao();
-        Debug_Singleton.getInstance().log("Main::adicionarBebida", "Opção de bebida lida", escolhaBebida);
+        DebugSingleton.getInstance().log("Main::adicionarBebida", "Opção de bebida lida", escolhaBebida);
 
-        ItemCardapio_Interface bebida = Suco_Factory.criarSuco(escolhaBebida);
+        ItemCardapioInterface bebida = SucoFactory.criarSuco(escolhaBebida);
 
         if (bebida == null) {
             System.out.println("Opção de bebida inválida.");
@@ -207,7 +207,7 @@ public class Main {
         }
 
         pedido.add(bebida);
-        Debug_Singleton.getInstance().log("Main::adicionarBebida", "Bebida criada e adicionada à lista de pedido", bebida.getDescricao());
+        DebugSingleton.getInstance().log("Main::adicionarBebida", "Bebida criada e adicionada à lista de pedido", bebida.getDescricao());
         System.out.println(">>> " + bebida.getDescricao() + " adicionado ao pedido! <<<");
     }
 }

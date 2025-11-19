@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Categoria_Cardapio_Composite implements ItemCardapio_Interface {
+public class CategoriaCardapioComposite implements ItemCardapioInterface {
 
 
-    private List<ItemCardapio_Interface> itens = new ArrayList<>();
+    private List<ItemCardapioInterface> itens = new ArrayList<>();
     private String nomeCategoria;
 
     String descricao = "Categoria de Itens";
@@ -23,17 +23,17 @@ public class Categoria_Cardapio_Composite implements ItemCardapio_Interface {
 
 
 
-    public Categoria_Cardapio_Composite(String nomeCategoria) {
+    public CategoriaCardapioComposite(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
 
-    public void adicionarItem(ItemCardapio_Interface item) {
+    public void adicionarItem(ItemCardapioInterface item) {
         itens.add(item);
     }
     @Override
     public String getDescricaoFormatada() {
         String textoFormatado = "\n---- " + this.nomeCategoria + " ----";
-        for (ItemCardapio_Interface item : itens) {
+        for (ItemCardapioInterface item : itens) {
             textoFormatado = textoFormatado + "\n  - " + item.getDescricaoFormatada();
         }
         return textoFormatado;

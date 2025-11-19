@@ -1,7 +1,7 @@
 package C_M_Lanches.Bebidas;
 
-public class Suco_Uva extends Suco_Abstrato {
-    public Suco_Uva() {
+public class SucoUva extends SucoAbstrato {
+    public SucoUva() {
         descricao = "Suco de Uva";
     }
 

@@ -1,6 +1,6 @@
 package C_M_Lanches;
 
-public interface ItemCardapio_Interface {
+public interface ItemCardapioInterface {
     String getDescricao();
     double cost();
 

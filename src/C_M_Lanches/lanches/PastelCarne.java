@@ -1,8 +1,8 @@
 package C_M_Lanches.lanches;
 
-public class Pastel_Carne extends Pastel_Abstrato {
+public class PastelCarne extends PastelAbstrato {
 
-    public Pastel_Carne(){
+    public PastelCarne(){
         descricao = "Pastel de Carne";
     }
 

@@ -1,11 +1,11 @@
 package C_M_Lanches.lanches.Extras;
 
-import C_M_Lanches.lanches.Pastel_Abstrato;
+import C_M_Lanches.lanches.PastelAbstrato;
 
-public class Cheddar extends Extras_Abstrato {
-    Pastel_Abstrato pastel;
+public class Cheddar extends ExtrasAbstrato {
+    PastelAbstrato pastel;
 
-    public Cheddar(Pastel_Abstrato pastel){
+    public Cheddar(PastelAbstrato pastel){
         this.pastel = pastel;
     }
 
