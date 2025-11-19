@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import C_M_Lanches.Categoria_Cardapio_Composite;
 import C_M_Lanches.ItemCardapio_Interface;
-import C_M_Lanches.Gerenciador_Vendas_Singleton; 
+import C_M_Lanches.Gerenciador_Vendas_Singleton;
 import C_M_Lanches.Bebidas.*;
 import C_M_Lanches.lanches.*;
 import C_M_Lanches.lanches.Extras.*;
@@ -70,15 +70,14 @@ public class Main {
         Categoria_Cardapio_Composite categoriaPasteis = new Categoria_Cardapio_Composite("PASTÉIS");
         Categoria_Cardapio_Composite categoriaBebidas = new Categoria_Cardapio_Composite("BEBIDAS");
 
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Pastris base adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Carne());
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Frango());
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Queijo());
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Calabresa());
-        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
 
+
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Sucos base adicionados às categorias", null);
         categoriaBebidas.adicionarItem(new Suco_Laranja());
         categoriaBebidas.adicionarItem(new Suco_Uva());
         categoriaBebidas.adicionarItem(new Suco_Limao());
@@ -117,11 +116,11 @@ public class Main {
         double total = 0.0;
 
         recibo.append("\n========= CUPOM FISCAL ==========\n");
-        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Total calculado", total);
         for (ItemCardapio_Interface item : pedido) {
             recibo.append(item.getDescricaoFormatada()).append("\n");
             total += item.cost();
         }
+        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Total calculado", total);
         recibo.append("----------------------------------\n");
         recibo.append(String.format("TOTAL A PAGAR: R$%.2f\n", total));
         recibo.append("==================================\n");

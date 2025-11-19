@@ -29,7 +29,6 @@ public class Gerenciador_Vendas_Singleton {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO, true))) {
             writer.write(reciboPedido);
             writer.newLine();
-            writer.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao salvar o pedido no arquivo: " + e.getMessage());
             Debug_Singleton.getInstance().log("Gerenciador_Vendas", "ERRO ao salvar pedido", e.getMessage());
