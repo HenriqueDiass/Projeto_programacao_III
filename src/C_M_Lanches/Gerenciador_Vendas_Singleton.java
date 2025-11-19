@@ -7,22 +7,24 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Gerenciador_Vendas {
+public class Gerenciador_Vendas_Singleton {
 
-    private static Gerenciador_Vendas instance;
+    private static Gerenciador_Vendas_Singleton instance;
     private static final String CAMINHO_ARQUIVO = "historico_vendas.txt";
 
-    private Gerenciador_Vendas() {
+    private Gerenciador_Vendas_Singleton() {
     }
 
-    public static Gerenciador_Vendas getInstance() {
+    public static Gerenciador_Vendas_Singleton getInstance() {
         if (instance == null) {
-            instance = new Gerenciador_Vendas();
+            instance = new Gerenciador_Vendas_Singleton();
         }
         return instance;
     }
 
     public void salvarPedido(String reciboPedido) {
+
+        Debug_Singleton.getInstance().log("Gerenciador_Vendas", "Iniciando salvamento de pedido", CAMINHO_ARQUIVO);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO, true))) {
             writer.write(reciboPedido);
@@ -30,11 +32,13 @@ public class Gerenciador_Vendas {
             writer.newLine();
         } catch (IOException e) {
             System.out.println("Erro ao salvar o pedido no arquivo: " + e.getMessage());
+            Debug_Singleton.getInstance().log("Gerenciador_Vendas", "ERRO ao salvar pedido", e.getMessage());
         }
     }
 
 
     public void imprimirRelatorioGeral() {
+        Debug_Singleton.getInstance().log("Gerenciador_Vendas", "Acessando relatório de vendas", null);
         System.out.println("\n\n#########################################");
         System.out.println("      RELATÓRIO GERAL DE VENDAS (ARQUIVO)   ");
         System.out.println("#########################################");

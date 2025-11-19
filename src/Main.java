@@ -2,12 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import C_M_Lanches.Categoria_Cardapio;
+import C_M_Lanches.Categoria_Cardapio_Composite;
 import C_M_Lanches.ItemCardapio_Interface;
-import C_M_Lanches.Gerenciador_Vendas; // Nome com underscore
+import C_M_Lanches.Gerenciador_Vendas_Singleton; 
 import C_M_Lanches.Bebidas.*;
 import C_M_Lanches.lanches.*;
 import C_M_Lanches.lanches.Extras.*;
+import C_M_Lanches.Debug_Singleton;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -23,6 +24,8 @@ public class Main {
             mostrarMenuPrincipal();
             int escolha = lerOpcao();
 
+            Debug_Singleton.getInstance().log("Main::main", "Opção de menu principal escolhida", escolha);
+
             switch (escolha) {
                 case 1:
                     montarPastel();
@@ -37,9 +40,10 @@ public class Main {
                     fecharContaCliente();
                     break;
                 case 5:
-                    Gerenciador_Vendas.getInstance().imprimirRelatorioGeral();
+                    Gerenciador_Vendas_Singleton.getInstance().imprimirRelatorioGeral();
                     break;
                 case 0:
+                    Debug_Singleton.getInstance().log("Main::main", "Encerrando o programa", null);
                     System.out.println("\nEncerrando sistema... Até logo!");
                     scanner.close();
                     return;
@@ -61,23 +65,29 @@ public class Main {
     }
 
     private static void montarCardapioParaExibicao() {
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Iniciando montagem do Cardápio Composite", null);
 
-        Categoria_Cardapio categoriaPasteis = new Categoria_Cardapio("PASTÉIS");
-        Categoria_Cardapio categoriaBebidas = new Categoria_Cardapio("BEBIDAS");
+        Categoria_Cardapio_Composite categoriaPasteis = new Categoria_Cardapio_Composite("PASTÉIS");
+        Categoria_Cardapio_Composite categoriaBebidas = new Categoria_Cardapio_Composite("BEBIDAS");
 
         categoriaPasteis.adicionarItem(new Pastel_Carne());
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Frango());
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Queijo());
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
         categoriaPasteis.adicionarItem(new Pastel_Calabresa());
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Itens base (Pasteis e Bebidas) adicionados às categorias", null);
 
         categoriaBebidas.adicionarItem(new Suco_Laranja());
         categoriaBebidas.adicionarItem(new Suco_Uva());
         categoriaBebidas.adicionarItem(new Suco_Limao());
         categoriaBebidas.adicionarItem(new Suco_Maracuja());
 
-        cardapioCompleto = new Categoria_Cardapio("CARDÁPIO DA LANCHONETE");
-        ((Categoria_Cardapio) cardapioCompleto).adicionarItem(categoriaPasteis);
-        ((Categoria_Cardapio) cardapioCompleto).adicionarItem(categoriaBebidas);
+        cardapioCompleto = new Categoria_Cardapio_Composite("CARDÁPIO DA LANCHONETE");
+        ((Categoria_Cardapio_Composite) cardapioCompleto).adicionarItem(categoriaPasteis);
+        ((Categoria_Cardapio_Composite) cardapioCompleto).adicionarItem(categoriaBebidas);
+        Debug_Singleton.getInstance().log("Main::montarCardapioParaExibicao", "Montagem do Cardápio Completo finalizada", null);
     }
 
     private static void mostrarCardapioCompleto() {
@@ -96,14 +106,18 @@ public class Main {
 
     private static void fecharContaCliente() {
         if (pedido.isEmpty()) {
+            Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Tentativa de fechar conta, mas pedido está vazio", null);
             System.out.println("\nA mesa está vazia. Adicione itens antes de fechar a conta.");
             return;
         }
+
+        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Iniciando fechamento da conta", "Itens no pedido: " + pedido.size());
 
         StringBuilder recibo = new StringBuilder();
         double total = 0.0;
 
         recibo.append("\n========= CUPOM FISCAL ==========\n");
+        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Total calculado", total);
         for (ItemCardapio_Interface item : pedido) {
             recibo.append(item.getDescricaoFormatada()).append("\n");
             total += item.cost();
@@ -116,9 +130,11 @@ public class Main {
         System.out.println(textoFinal);
 
 
-        Gerenciador_Vendas.getInstance().salvarPedido(textoFinal);
+        Gerenciador_Vendas_Singleton.getInstance().salvarPedido(textoFinal);
+        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Chamando Gerenciador_Vendas para salvar o pedido", null);
         System.out.println(">> Venda registrada no sistema com sucesso! <<");
         pedido.clear();
+        Debug_Singleton.getInstance().log("Main::fecharContaCliente", "Lista de pedidos limpa", null);
         System.out.println("\nPronto para o próximo atendimento...");
     }
 
@@ -130,6 +146,8 @@ public class Main {
         System.out.println("4. Calabresa");
         System.out.print("Escolha o sabor: ");
         int escolhaPastel = lerOpcao();
+
+        Debug_Singleton.getInstance().log("Main::montarPastel", "Opção de sabor de pastel lida", escolhaPastel);
 
 
         Pastel_Abstrato pastelBase = Pastel_Factory.criarPastel(escolhaPastel);
@@ -150,7 +168,10 @@ public class Main {
 
             int escolhaExtra = lerOpcao();
 
+            Debug_Singleton.getInstance().log("Main::montarPastel", "Opção de extra lida", escolhaExtra);
+
             if (escolhaExtra == 0) {
+                Debug_Singleton.getInstance().log("Main::montarPastel", "Usuário finalizou o pastel sem mais extras", null);
                 break;
             }
 
@@ -164,6 +185,7 @@ public class Main {
             }
         }
         pedido.add(pastelBase);
+        Debug_Singleton.getInstance().log("Main::montarPastel", "Pastel finalizado e adicionado à lista de pedido", pastelBase.getDescricao());
         System.out.println(">>> Pastel (" + pastelBase.getDescricao() + ") adicionado ao pedido! <<<");
     }
 
@@ -176,6 +198,7 @@ public class Main {
         System.out.print("Escolha a bebida: ");
 
         int escolhaBebida = lerOpcao();
+        Debug_Singleton.getInstance().log("Main::adicionarBebida", "Opção de bebida lida", escolhaBebida);
 
         ItemCardapio_Interface bebida = Suco_Factory.criarSuco(escolhaBebida);
 
@@ -185,6 +208,7 @@ public class Main {
         }
 
         pedido.add(bebida);
+        Debug_Singleton.getInstance().log("Main::adicionarBebida", "Bebida criada e adicionada à lista de pedido", bebida.getDescricao());
         System.out.println(">>> " + bebida.getDescricao() + " adicionado ao pedido! <<<");
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Categoria_Cardapio implements ItemCardapio_Interface {
+public class Categoria_Cardapio_Composite implements ItemCardapio_Interface {
 
 
     private List<ItemCardapio_Interface> itens = new ArrayList<>();
@@ -23,7 +23,7 @@ public class Categoria_Cardapio implements ItemCardapio_Interface {
 
 
 
-    public Categoria_Cardapio(String nomeCategoria) {
+    public Categoria_Cardapio_Composite(String nomeCategoria) {
         this.nomeCategoria = nomeCategoria;
     }
 
